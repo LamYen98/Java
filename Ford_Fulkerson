@@ -1,0 +1,151 @@
+public class Ford_Fulkerson {
+    int G[][];
+    int N;
+    boolean daXet[];
+    int dinhTruoc[];
+    int dinhPhat;
+    int dinhThu;
+    
+  //  ArrayList<Integer>dsduyet;
+    public Ford_Fulkerson (){
+        N=0;
+        G=null;
+        daXet=null;
+        dinhTruoc=null;
+        dinhPhat=0;
+        dinhThu=0;
+  
+    }
+        public boolean LayDuLieuTuFile(String Tenfile) throws FileNotFoundException, IOException {
+        try {
+            File file = new File(Tenfile);
+            if (!file.exists()) {
+                return false;
+            }
+            FileInputStream input = new FileInputStream(Tenfile);
+            InputStreamReader istream = new InputStreamReader(input);
+            java.io.BufferedReader read = new java.io.BufferedReader(istream);
+            String s;
+            s = read.readLine();
+            String temp[] = s.split(" ");
+            N = Integer.parseInt(temp[0]);
+            G = new int[N][N];
+           
+            dinhPhat = Integer.parseInt(temp[1]);
+            dinhThu = Integer.parseInt(temp[2]);
+            int row = 0;
+            while ((s = read.readLine()) != null) {
+                temp = s.split(" ");
+                for (int col = 0; col < N; col++) {
+                    G[row][col] = Integer.parseInt(temp[col]);
+                }
+                row++;
+            }
+            read.close();
+            istream.close();
+            input.close();
+        } catch (FileNotFoundException ex) {
+            System.err.println("File khong tim thay.\n" + ex.toString());
+        }
+        return true;
+    }
+
+    public void inMaTran(){
+        System.out.println("Ð? th? có: " + N + " d?nh"
+        +"\nÐ?nh Phát: " + dinhPhat
+        +"\nÐ?nh thu: " + dinhThu
+        +"\nMa tran kha nang thong qua :");
+        for (int i = 0; i < N; i++) {
+//            System.out.print("\t\t");
+            for (int j = 0; j < N; j++) 
+                System.out.print(G[i][j] + "\t");
+            System.out.println();
+        }
+        System.out.println();
+    }
+         
+     
+     private void khoitao(){
+         daXet= new boolean[N];
+         dinhTruoc = new int[N];
+         
+    //     dsduyet.clear();
+         for(int i=0;i<N;i++){
+         daXet[i]=false;
+         dinhTruoc[i]=0;
+     }
+     }
+    public boolean BFS(int dinhPhat, int dinhThu, int dothitangluong[][]){
+         ArrayList<Integer>HangDoi;
+         HangDoi = new ArrayList<>();
+         khoitao();
+         daXet[dinhPhat]=true;
+         HangDoi.add(0,dinhPhat);
+         while(HangDoi.size()>0){
+         dinhPhat=HangDoi.get(HangDoi.size()-1);
+         HangDoi.remove(HangDoi.size()-1);
+       //  dsduyet.add(dinhPhat);
+         for(int j=0; j<N; j++)
+             if(dothitangluong[dinhPhat][j]>0){
+                 if(!daXet[j]){
+                     daXet[j]=true;
+                     dinhTruoc [j]=dinhPhat;
+                     HangDoi.add(0,j);
+                     if(j==dinhThu) return true;
+                 }
+             }
+             }
+         return false;
+    }
+  int TT_Ford_Fulkerson(){
+     int fmax = 0;
+        int delta;
+        int dothitangluong[][];
+        dothitangluong = G;
+        int v;
+        int u;
+        while (BFS(dinhPhat,dinhThu, dothitangluong)) {
+            delta = Integer.MAX_VALUE;
+            for (v = dinhThu; v != dinhPhat; v = dinhTruoc[v]) {
+                u = dinhTruoc[v];
+                delta = Math.min(delta, dothitangluong[u][v]);
+            }
+            for (v = dinhThu; v != dinhPhat; v = dinhTruoc[v]) {
+                u = dinhTruoc[v];
+                dothitangluong[v][u] += delta;
+                dothitangluong[u][v] -= delta;
+            }
+            fmax += delta;
+        }
+        return fmax;
+//        System.out.println("Gia tri luong cuc dai: " + fmax);
+    }
+    
+  public void  latcat(){
+      for(int i =1;i<N;i++){
+          daXet[i]=true;
+          System.out.println(i+1);
+      }
+  }
+   public static void main(String agrs[]) throws IOException{
+       String Tentaptin;
+        Tentaptin ="C:\\Users\\NGOC HAN\\Desktop\\ff.txt";
+        Ford_Fulkerson demo;
+        demo = new Ford_Fulkerson();
+        if (!demo.LayDuLieuTuFile(Tentaptin)) {
+            System.out.println("\t\tTap tin khong ton tai!");
+            System.exit(0);
+        }
+        System.out.println("\t Ma tran trong so: ");
+        demo.inMaTran();
+        System.out.println("so dinh cua ma tran: "+demo.N);
+        System.out.println("dinh phat cua ma tran: "+demo.dinhPhat);
+        System.out.println("dinh thu cua ma tran: "+demo.dinhThu);
+        
+        System.out.println("Gia tri luong cuc dai: "+demo.TT_Ford_Fulkerson());
+        System.out.print("lat cat nho nhat: ");
+        demo.latcat();
+
+        
+    } 
+}
