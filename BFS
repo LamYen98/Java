@@ -1,0 +1,185 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+public class BFS {
+    int G[][]; // ma tr?n tr?ng s?
+    int N;     // s? g?nh c?a g? th?
+    public int dinhdau; // g?nh g?u
+    boolean daxet[]; // g?nh g? xét thu?c gi?ng gi ng?n nh?t
+    int dinhtruoc[]; // liu vi?t g?nh tri?c c?a i
+    ArrayList<Integer> dsDuyet; //luu th? t? duy?t g?nh
+
+    // hàm kh?i t?o
+public BFS(){
+         N = 0;
+         G =null;
+         dinhdau = 0;
+         daxet = null;
+         dinhtruoc = null;
+         dsDuyet = new ArrayList<Integer>();
+    }
+    // d?c d? li?u t? file
+public boolean Laydulieutufile(String tenfile){
+        try
+        {
+            File file = new File(tenfile);
+            if(!file.exists())
+                return false;
+            FileInputStream input = new FileInputStream(tenfile);
+            InputStreamReader istream = new InputStreamReader(input);
+            BufferedReader reader = new BufferedReader(istream);
+            String s;
+            // g?c s? g?nh g? th?
+            s = reader.readLine();
+            String temp[] = s.split(" "); // gia d? li?u vào m?ng
+            N = Integer.parseInt(temp[0]); //l?y sô g?nh
+            dinhdau = Integer.parseInt( temp[1])-1; // l?y g?nh b?t g?u
+            G = new int [N][N];
+            int row = 0;
+            // goc các d?ng ti?p theo vào ma tr?n 
+            while((s = reader.readLine()) != null)
+            {
+                temp = s.split(" ");
+                for(int col = 0; col<N; col++)
+                    G[row][col]= Integer.parseInt(temp[col]);
+                row++;
+            }
+            // dong file
+            reader.close();
+            istream.close();
+            input.close();
+        }
+        catch(FileNotFoundException ex)
+        {
+            System.err.println("File ko tim thay \n" +ex.toString());
+        }
+        catch(IOException ex)
+        {
+            System.err.println("l?i ngo?i l? \n"+ ex.toString());
+        }
+        return true;
+    }
+    // in ma tr?n
+    public void inMatran(){
+        for(int i= 0; i<N; i++){
+            System.out.print("\t\t");
+            for(int j=0; j<N; j++)
+                System.out.print(G[i][j] + "\t");
+            System.out.println();
+        }
+    }
+    /*
+    public void indsduyet(){
+        System.out.println("\n thu tu duyet theo: "+5+" ");
+        for(int i=0; i<N;i++){
+        System.out.print((char)(dsduyet.get(i)+65)+" ");
+            System.out.println();
+        }
+    }
+    */
+    public void inThutuduyetBFS(){
+        System.out.print("\n thu tu duyet theo BFS: ");
+        for(int i = 0; i<N;i++)
+            System.out.print((char)(dsDuyet.get(i)+65)+" ");
+        
+        System.out.println();
+        
+    }
+    private void khoitao(){
+        daxet = new boolean[N];
+        dinhtruoc = new int[N];
+        dsDuyet.clear();
+        for(int i = 0; i<N;i++){
+            daxet[i]=false;
+            dinhtruoc[i]=0;
+        }
+    }
+    /*public void dsduyet(){
+        
+    }*/
+    public void BFS(int i){
+        ArrayList<Integer> hangDoi ; // khai bao bien danh sach lam hang doi
+        hangDoi = new ArrayList<Integer>(); // t?o hàng g?i r?ng
+        khoitao();
+        daxet[i]= true; // dinh dau dinh i da xet
+        hangDoi.add(0,i); //gia i vào hàng g?i
+        while(hangDoi.size()>0) // l?p khi hàng chia r?ng
+        {
+            i= hangDoi.get(hangDoi.size()-1);
+            hangDoi.remove(hangDoi.size()-1);// xóa g?nh i ? cu?i ra kh?i hàng g?i
+            dsDuyet.add(i);
+      
+          
+            // gia g?nh i g? duy?t vào danh sách
+            for(int j=0; j< N;j++)// them các g?nh k? v?i i vào hàng g?i
+            {
+                if(G[i][j]>0){
+                    if(!daxet[j]){
+                        daxet[j]= true;
+                        dinhtruoc[j]=i;
+                        hangDoi.add(0,j);
+                    }
+                }
+            }
+            
+        } // k?t thúc BFS   
+    }
+ /*   public void DFS(int i){
+        stack<Integer> stack = new stack<Integer>(); // khai báo ngãn x?p
+        stack.push(i);// gia i vào ngãn x?p
+        while(!stack.empty() || dsduyet.size()< N)// lap khi ngãn x?p chia r?ng
+        {
+            i= stack.peek(); // l?y g?nh g?u ngãn x?p
+            stack.pop();
+            daxet[i] = true;
+            dsduyet.add(i); // gia g?nh i tra duyet vao danh sach
+            for(int j= N-1; j>=0; j--) // xét các g?nh
+                if(G[i][j]>0) // n?u k? v?i i
+                    if(!daxet[j])// neu chia duy?t
+                        stack.push(j);// dua dinh k? i vao ngan xep
+        }
+        
+    }// het thu tuc DFS
+*/
+    public void induongdi(){
+        for(int i =0; i<N; i++)
+            if(i!=dinhdau){
+                System.out.print("\n du?ng di t? " +(char)(dinhdau+65)+"");
+                int k= dinhtruoc[i];
+                int t[]=new int[N];
+                int dem=0;
+                while(k!=dinhdau){
+                    t[dem]=k;
+                    k=dinhtruoc[k];
+                    dem++;
+                }
+                t[dem]=i;
+                for(int j=dem;j>=0;j--)
+                    System.out.println("<-"+(char)(t[j]+65));
+                System.out.println();
+           
+    }
+           
+    
+    }
+public static void main(String[] args){
+        String tenfile="D://matran.txt";
+        BFS demo;
+        demo = new BFS();
+        if(!demo.Laydulieutufile(tenfile)){
+            System.exit(0);
+            
+        }
+        System.out.println("\t\t ma tr?n trong s?");
+        demo.inMatran();
+        demo.BFS(demo.dinhdau);
+        demo.inThutuduyetBFS();
+        demo.induongdi();
+    }
+
+    
+}
