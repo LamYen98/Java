@@ -1,0 +1,238 @@
+package kpbalandao;
+/*
+TEN: Lam Phi Yen
+Lop:B16TT2
+MSSV:1602206080
+*/
+import java.util.Arrays;
+import java.util.Scanner;
+import java.util.Stack;
+
+
+public class KPbalandao {
+    /*public boolean ktNgoac(String bthuc[]){
+        Stack<String> s=new Stack<String>();
+        for(int i=0; i< bthuc.length;i++){
+            char c= bthuc[i].charAt(0);
+            if(c=='(') s.push(bthuc[i]);
+            else if(c== ')'){
+                if(s.isEmpty()|| !")".equals(s.pop()))
+                    return false;
+            }
+            else if((laToantu(bthuc[i].charAt(0)))==(laToantu(bthuc[i+1].charAt(0))))
+                 return false;
+  
+            }  
+        return s.isEmpty();
+        }*/
+    
+     public int doUutien(char c){       // thiet lap thu tu uu tien
+         if(c=='+' || c=='-') return 1;
+         else if(c=='*'|| c=='/') return 2;
+         else if(c=='^')    return 3;
+         else return 0;
+     }
+     public boolean laToantu(char c){     // kiem tra xem co phai toan tu
+         char Toantu[]={ '+','-','*','/','(',')','^'};
+         Arrays.sort(Toantu); // ham dung de sap xep
+         if(Arrays.binarySearch(Toantu,c)<= -1) // tim 1 phan tu trog mang
+             return false;  // ko la toan tu
+         else return true;      // la toan tu
+         
+     }
+     
+     // xu ly bieu thuc nhap vao thanh máº£ng cac chuoi
+     // dung duoc cho so co nhieu chu so
+    public String[] xulyChuoi(String bthuc){
+        String s1=" ";   // loáº¡i bá»? cĂ¡c khoáº£ng tráº¯ng Ä‘áº§u va cuoi chuoi
+        String[] kqua= null;
+        //chuoi tam e chua cac phan tu, cach nhau boi khoang trang
+        KPbalandao IFP= new KPbalandao();
+        s1= s1.replaceAll("\\s+"," ");
+        // loai bo khoang trang dau va cuoi chuoi
+        bthuc=bthuc.trim();
+        // duyet tu dau den cuoi chuoi
+        for(int i=0; i< bthuc.length(); i++){
+            char c= bthuc.charAt(i);
+            if(!IFP.laToantu(c))    // neu khong la toan tu
+                s1= s1+ c;      // them vao s1
+            else // neu la toan tu thi them vao s1
+                if(!IFP.laToantu(c))  // neu ko la toan tu
+                    s1 = s1+ c; // them vao s1
+                else // neu la toan tu thi them vao s1
+                    if(s1.endsWith(" ")) // truoc do da co gia tri
+                        s1 = s1 + c + " ";
+                    else        // truoc o la so
+                        s1= s1 +" "+ c + " ";
+    
+        }
+        s1 = s1.trim();   //bo khoang trang cuoi
+        //kqua = s1.split(" ");  // tach s1 thanh cac phan tu mang
+        s1= s1.replaceAll("\\s+"," ");
+        return s1.split(" ");
+    } 
+    
+    
+    public boolean KiemtraHople(String bt)
+    {
+        Stack s = new Stack();
+        for(int i = 0; i < bt.length(); i++)
+        {
+            char c = bt.charAt(i);
+            if(!Character.isDigit(c) && c != '+' && c != '-' && c != '*' && c!= '/' && c != '(' && c != ')' && c != '^')
+                return false;
+                else if(c == '(')
+                        {
+                            s.push("(");
+                        if(!Character.isDigit(bt.charAt(i+1)))
+                            return false;
+                        }
+                else if(c == ')')
+                {
+                    if(s.empty())
+                        return false;
+                    s.pop();
+                    if(!Character.isDigit(bt.charAt(i-1)))
+                        return false;
+}
+        }
+        if(s.empty())
+        return true;
+        return false;
+    }
+    
+    
+    public String[] DuyetHautu(String[] bthuc){
+        KPbalandao IFP= new KPbalandao();
+        String s1 = " ";
+        Stack <String> s = new Stack <String>();
+        for(int i=0; i<bthuc.length; i++){       // duyet tu dau bieu thuc
+            char c= bthuc[i].charAt(0);   // c la ky tu thu i trong bieu thuc
+            if(!IFP.laToantu(c))        // neu c ko la toan tu
+                s1 = s1+ " "+ bthuc[i];// dua ky tu c vao s1
+            else{       // c la toan tu
+            if(c=='(') s.push( bthuc[i]);   // c la "(" -> push vao stack
+            else{
+                if(c==')'){     // c la ")"
+                    char c1;
+                    do{     // duyet lai cac phan tu trong stack
+                        c1 = s.peek().charAt(0); // c1 lĂ  kĂ­ tá»± Ä‘au
+                        if(c1 !='(')     s1 = s1+" "+s.peek();
+                        s.pop();                       
+                      } while(c1 !='(');
+                }
+                    else{
+                            while(!s.isEmpty() && IFP.doUutien(s.peek().charAt(0)) >= IFP.doUutien(c)){
+                            // stack khac rong va phan tu trong stack co do uu tien >= phan tu hien tai
+                            s1 = s1 +" "+ s.peek(); //lay phan tu tong stack dua vao s1
+                            s.pop();
+                            }
+                            
+                            }
+                    s.push(bthuc[i]);      // dua phan tu hien tai vao stack
+                    
+            }
+            }
+            }
+            
+        
+        while(!s.isEmpty()){        // neu stack con phan tu thi day het vao s1
+            s1 = s1+ s.peek();
+            s.pop();
+            
+        }
+        s1=s1.trim();
+        return s1.split(" ");
+    }
+
+    public String TinhGiatri(String[] bthuc){
+        KPbalandao IFP = new KPbalandao();
+        Stack <String> s = new Stack <String>();
+        for(int i = 0; i < bthuc.length; i++)
+        {
+            char c = bthuc[i].charAt(0); //lay ky tu thu i
+            if(!IFP.laToantu(c)) // neu la toan tu thi push vao Stack
+                s.push(bthuc[i]);
+            else // nguoc lai lay 2 gia tri trong Stack va tinh
+            {
+                float num = 0;
+                float num1 = Float.parseFloat(s.pop());
+                float num2 = Float.parseFloat(s.pop());
+                switch(c)
+                {
+                    case '+' : num = num2 + num1; break;
+                    case '-' : num = num2 - num1; break;
+                    case '*' : num = num2 * num1; break;
+                    case '/' : num = num2 / num1; break;
+                    case '^' : num = (float)Math.pow(num2, num1); break;
+                    default: break;
+                }
+                s.push(Double.toString(num)); // tinh xong push ket qua vao Stack
+            }
+        }
+        return s.pop(); // tra ve gia tri dau Stack
+    }
+    
+    public static void main(String[] args) {
+        
+        KPbalandao IFP = new KPbalandao();
+        
+        String  bthuc = null, s[] = null;
+        int chon1 =0;
+        do
+        {
+            System.out.print("\n+---------------------------+");
+            System.out.print("\n+           MENU            +");
+            System.out.print("\n+---------------------------+");
+            System.out.print("\n+ 1. Nhap bieu thuc         +");
+            System.out.print("\n+ 2. Bieu thuc BA LAN DAO   +");
+            System.out.print("\n+ 3. Ket qua                +");
+            System.out.print("\n+---------------------------+");
+            System.out.print("\n+ 0. Ket thuc               +");
+            System.out.print("\n+---------------------------+");
+
+            System.out.print("\nVui long chon thao tac ban muon: ");
+            Scanner chon = new Scanner(System.in); 
+            chon1 = chon.nextInt();
+
+            switch(chon1)
+            {
+                case 1: 
+                        Scanner sc = new Scanner(System.in);
+                        
+                            System.out.println("Nhap vao bieu thuc : ");
+                            bthuc = sc.nextLine();
+                           
+                        break;
+                    
+                            
+
+                case 2: System.out.print("Bieu thuc Ba Lan dao: ");
+                        
+                if(IFP.KiemtraHople(bthuc))
+                        {
+                            s =  IFP.DuyetHautu(IFP.xulyChuoi(bthuc));
+                        for(int i = 0; i < s.length; i++) //in bieu thuc da duyet hau tu
+                            System.out.print(s[i] + " ");
+                        }
+                        else System.out.println("Bieu thuc khong hop le!");
+                        break;
+
+                case 3: 
+                        System.out.print("Gia tri bieu thuc: " + IFP.TinhGiatri(s));
+
+                        break;
+
+                
+            }
+        }
+        
+        while(chon1 != 0);
+            {
+                System.out.println("Chuong trinh da ket thuc!");
+            }
+}
+
+}
+    
+    
