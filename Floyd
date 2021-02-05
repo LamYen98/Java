@@ -1,0 +1,139 @@
+4
+0 2 0 3
+2 0 5 4 
+0 5 0 2
+3 4 2 0
+
+package ford;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+
+public class Floyd {
+    int g[][];                 // ma tran ke trong so
+    int n;                     // so dinh cua do thi
+    int dinhTruoc[][];
+    // mang luu do dai duong di
+    int doDai[][];
+    int vocung= 999999;
+    public Floyd(){
+        n =0;
+        g= null;
+        dinhTruoc= null;
+        doDai= null;
+        vocung=0;
+    }
+    public boolean Laydulieutufile(String tenfile){
+        try
+        {
+            File file = new File(tenfile);
+            if(!file.exists())
+                return false;
+            FileInputStream input = new FileInputStream(tenfile);
+            InputStreamReader istream = new InputStreamReader(input);
+            BufferedReader reader = new BufferedReader(istream);
+            String sc;
+            //doc so dinh cua do thi
+            sc = reader.readLine();
+            n = Integer.parseInt(sc); //doc so dinh           
+            g = new int [n][n]; // cap nhat ma tran g
+            int row = 0;
+            String temp[];
+            // doc ma tran do thi
+            while((sc = reader.readLine()) != null)
+            {
+                temp = sc.split(" ");
+                for(int col = 0; col<n; col++)
+                    g[row][col]= Integer.parseInt(temp[col]);
+                row++;
+            }
+            // dong file
+            reader.close();
+            istream.close();
+            input.close();
+        }
+        catch(FileNotFoundException ex)
+        {
+            System.err.println("File ko tim thay \n" +ex.toString());
+        }
+        catch(IOException ex)
+        {
+            System.err.println("l?i ngo?i l? \n"+ ex.toString());
+        }
+        return true;
+    }
+   public void inMatran(){
+        for(int i= 0; i<n; i++){
+            System.out.print("\t\t");
+            for(int j=0; j<n; j++)
+                System.out.print(g[i][j] + "\t");
+            System.out.println();
+        }
+    }
+    public void inMatran(int M[][], int n, String ten){
+        System.out.println("\t ma tran: "+ten);
+                for(int i=0;i<n;i++){
+                    for(int j=0;j<n;j++){
+                        if(M[i][j]== vocung && M[i][j]==-1)
+                        {
+                            System.out.print("-\t");
+                        }
+                        else{
+                            System.out.print(M[i][j]+"\t");
+                        }
+                    } 
+                    System.out.println();
+                }               
+    }
+    public void Floyd(){
+        doDai= new int [n][n];
+        doDai=g;
+        dinhTruoc= new int[n][n];
+        // khoi tao
+        // thiet lap lai gia tri 0 trong ma tran bang gia tri vo cung
+        for(int i=0;i<n;i++)
+            for(int j = 0;j<n;j++)
+                if(doDai[i][j] ==0){
+                    doDai[i][j]=vocung;
+                    dinhTruoc[i][j]=-1;
+                }
+                else
+                    // neu co canh thi khoi tao dinhTruoc[i][j] =1;
+                    dinhTruoc[i][j] =i;
+        // thuat toan Floyd
+            for(int k=0; k<n;k++){              
+                for(int i=0; i<n;i++)
+                    for(int j=0; j<n;j++)
+                    if(i!=j&&doDai[i][k]<vocung && doDai[k][j]< vocung)
+                        if(doDai[i][j]>(doDai[i][k]+doDai[k][j])){
+                            doDai[i][j]= (doDai[j][k] + doDai[k][j]);
+                                // gan dinh truoc
+                            dinhTruoc[i][j]= dinhTruoc[k][j];
+                    }
+                    // in cac mang do dai va dinh truoc cua tung buoc lap k
+                System.out.println("buoc lap k="+k);
+                inMatran(doDai, n,"Do dai");
+                inMatran(dinhTruoc,n," Šinh truoc");
+        }
+    }
+    public static void main(String[] args) {
+         String tenfile="D:/Floyd.txt";
+        Floyd demo;
+        demo = new Floyd();
+        if(!demo.Laydulieutufile(tenfile)){
+            System.exit(0);
+            
+        }
+        System.out.println("\t\t ma tran trong so");
+        demo.inMatran();
+        demo.Floyd();
+        
+    }
+
+    
+}
