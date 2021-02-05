@@ -1,0 +1,243 @@
+ import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JTextField;
+ 
+public class form {    
+    static int fnum,snum,result;
+    static String op;
+    public static void main(String[] args) {
+    
+        JFrame frame = new JFrame();
+        frame.setSize(300, 300);
+        //frame.setLocation(450, 300);
+        frame.setLocationRelativeTo(null); // hien thi ngay trung tam
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//them close
+        frame.setVisible(true);// show
+        frame.setTitle("MY FRAME");
+        Toolkit kit = Toolkit.getDefaultToolkit();
+        Image img = kit.getImage("E:\\icon.jpg");  // chen icon
+        frame.setIconImage(img);
+        // chen hinh nen
+        JLabel label =new JLabel("IT'S ME");        
+        label.setFont(new Font("Serif", Font.ITALIC + Font.BOLD,25));
+        label.setForeground(Color.DARK_GRAY);
+        //frame.setContentPane().add(label);
+        label.setBounds(20,100,150,30);
+        frame.add(label);
+        
+        ImageIcon background = new ImageIcon("E:\\hinhabc.jpg");
+        label.setIcon(background);
+        
+        JMenuBar jmb = new JMenuBar();
+        JMenu jmFile = new JMenu("File");
+        JMenuItem jmiBasic = new JMenuItem("Basic");
+        JMenuItem jmiScientific = new JMenuItem("Scientific");
+        JMenuItem jmiExit = new JMenuItem("Exit");
+        jmFile.add(jmiBasic);
+        jmFile.add(jmiScientific);
+        jmFile.add(jmiExit);
+        jmb.add(jmFile);
+        
+        frame.add(jmb);
+        frame.setJMenuBar(jmb);
+        jmFile.setMnemonic('F'); // ALT = F
+        
+        
+        JTextField displayField = new JTextField(); // tao khung nhap chu
+        
+        JButton button0 = new JButton("0");
+        JButton button1 = new JButton("1");
+        JButton button2 = new JButton("2");
+        JButton button3 = new JButton("3");
+        JButton button4 = new JButton("4");
+        JButton button5 = new JButton("5");
+        JButton button6 = new JButton("6");
+        JButton button7 = new JButton("7");
+        JButton button8 = new JButton("8");
+        JButton button9 = new JButton("9");
+        JButton button10 = new JButton("C");
+        JButton buttonbang = new JButton("=");
+        JButton buttoncong = new JButton("+");
+        JButton buttontru = new JButton("-");
+        JButton buttonnhan = new JButton("*");
+        JButton buttonchia = new JButton("/");
+          
+        //hien so
+       
+        
+        frame.getContentPane().add(displayField);
+        frame.getContentPane().add(button0);
+        frame.getContentPane().add(button1);
+        frame.getContentPane().add(button2);
+        frame.getContentPane().add(button3);
+        frame.getContentPane().add(button4);
+        frame.getContentPane().add(button5);
+        frame.getContentPane().add(button6);
+        frame.getContentPane().add(button7);
+        frame.getContentPane().add(button8);
+        frame.getContentPane().add(button9);
+        frame.getContentPane().add(button10);
+        frame.getContentPane().add(buttonbang);
+        frame.getContentPane().add(buttoncong);
+        frame.getContentPane().add(buttontru);
+        frame.getContentPane().add(buttonnhan);
+        frame.getContentPane().add(buttonchia);
+
+        displayField.setBounds(20, 15,230, 30);
+        button0.setBounds(20, 50, 50, 30);
+        button1.setBounds(80, 50, 50, 30);
+        button2.setBounds(140, 50, 50, 30);
+        button3.setBounds(200, 50, 50, 30);     //80, 130, 50, 30
+        button4.setBounds(20, 90, 50, 30);     // c?t 60, hàng 40, chi?u dài c?a ô,chi?u r?ng c?a ô
+        button5.setBounds(80, 90, 50, 30);
+        button6.setBounds(140, 90, 50, 30);
+        button7.setBounds(200, 90, 50, 30);
+        button8.setBounds(20, 130, 50, 30);
+        button9.setBounds(80, 130, 50, 30);
+        button10.setBounds(140, 130, 50, 30);
+        buttonbang.setBounds(200, 130, 50, 30);
+        buttoncong.setBounds(20, 170, 50, 30);
+        buttontru.setBounds(80, 170, 50, 30);
+        buttonnhan.setBounds(140, 170, 50, 30);
+        buttonchia.setBounds(200, 170, 50, 30);
+        displayField.setBackground(Color.lightGray);
+        frame.setLayout(null);
+        
+        // tao hanh dong cho nut
+         button0.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae){
+                String Enternum = displayField.getText()+ button0.getText();
+                displayField.setText(Enternum);
+            }
+        });
+       button1.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae){
+                String Enternum = displayField.getText()+ button1.getText();
+                displayField.setText(Enternum);
+            }
+        });
+       button2.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae){
+                String Enternum = displayField.getText()+ button2.getText();
+                displayField.setText(Enternum);
+            }
+        });
+        button3.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae){
+                String Enternum = displayField.getText()+ button3.getText();
+                displayField.setText(Enternum);
+            }
+        });
+        button4.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae){
+                String Enternum = displayField.getText()+ button4.getText();
+                displayField.setText(Enternum);
+            }
+        });
+        button5.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae){
+                String Enternum = displayField.getText()+ button5.getText();
+                displayField.setText(Enternum);
+            }
+        });
+        button6.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae){
+                String Enternum = displayField.getText()+ button6.getText();
+                displayField.setText(Enternum);
+            }
+        });
+        button7.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae){
+                String Enternum = displayField.getText()+ button7.getText();
+                displayField.setText(Enternum);
+            }
+        });
+        button8.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae){
+                String Enternum = displayField.getText()+ button8.getText();
+                displayField.setText(Enternum);
+            }
+        });
+        button9.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae){
+                String Enternum = displayField.getText()+ button9.getText();
+                displayField.setText(Enternum);
+            }
+        });
+        button10.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae){
+                String Enternum = displayField.getText()+ button10.getText();
+                displayField.setText(Enternum);
+            }
+        });
+       
+
+        // ham tinh toan
+        buttoncong.addActionListener(new ActionListener(){
+             public void actionPerformed(ActionEvent ae){
+                 fnum = Integer.parseInt(displayField.getText());
+                 displayField.setText("");
+                 op="+";
+             }
+         });
+         
+        buttontru.addActionListener(new ActionListener(){
+             public void actionPerformed(ActionEvent ae){
+                 fnum = Integer.parseInt(displayField.getText());
+                 displayField.setText("");
+                 op="-";
+             }
+         });
+        buttonnhan.addActionListener(new ActionListener(){
+             public void actionPerformed(ActionEvent ae){
+                 fnum = Integer.parseInt(displayField.getText());
+                 displayField.setText("");
+                 op="*";
+             }
+         });
+        buttonchia.addActionListener(new ActionListener(){
+             public void actionPerformed(ActionEvent ae){
+                 fnum = Integer.parseInt(displayField.getText());
+                 displayField.setText("");
+                 op="/";
+             }
+         });
+        buttonbang.addActionListener( new ActionListener (){
+            public void actionPerformed(ActionEvent ae){
+                snum = Integer.parseInt(displayField.getText());
+                 if (op.equals("+")){
+                    result = fnum + snum;
+                    displayField.setText(result+" ");
+                 }
+              if(op.equals("-")){
+                    result = fnum - snum;
+                  displayField.setText(result+ " ");
+                }
+                if(op.equals("*")){
+                    result = fnum * snum;
+                  displayField.setText(result+ " ");
+                }
+                if(op.equals("/")){
+                    result = fnum / snum;
+                  displayField.setText(result+ " ");
+                }
+            }
+                
+
+
+        });
+    }
+
+   
+}
