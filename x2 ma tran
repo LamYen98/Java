@@ -1,0 +1,152 @@
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+
+
+public class nhan2MaTran {
+    
+    int dongA, cotA;
+    int dongB, cotB;
+    
+    
+    int A[][];
+    int B[][];
+    int C[][];
+    public void getDataA(){
+        try {
+            FileInputStream fis = new FileInputStream("maTranA.txt");
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
+            
+            
+            
+            String str;
+            str = br.readLine(); //đọc đầu tiên thể hiện số dòng và số cột
+            String temp[];
+            temp = str.split(" ");
+            //System.out.println(temp);
+            dongA = Integer.parseInt(temp[0]);
+            cotA = Integer.parseInt(temp[1]);
+            A = new int [dongA][cotA];
+            //System.out.println(A);
+            dongA = 0;
+            while((str = br.readLine()) != null){
+                temp = str.split(" ");
+                for(int i = 0; i < cotA; i++){
+                    A[dongA][i] = Integer.parseInt(temp[i]);
+                }
+                dongA++;
+            }
+            
+            
+            
+            
+        } catch (Exception e) {
+        
+        }
+    }
+    
+    
+    public void hienThiA(){
+        for(int i = 0; i < dongA; i++){
+            for(int j = 0; j < cotA; j++){
+                System.out.print(A[i][j] + "\t");
+            }
+            System.out.println("\n");
+        }
+    }
+    
+    
+    public void getDataB(){
+        try {
+            FileInputStream fis = new FileInputStream("maTranB.txt");
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
+            
+            
+            
+            String str;
+            str = br.readLine(); //đọc đầu tiên thể hiện số dòng và số cột
+            String temp[];
+            temp = str.split(" ");
+            //System.out.println(temp);
+            dongB = Integer.parseInt(temp[0]);
+            cotB = Integer.parseInt(temp[1]);
+            B = new int [dongB][cotB];
+            //System.out.println(A);
+            dongB = 0;
+            while((str = br.readLine()) != null){
+                temp = str.split(" ");
+                for(int i = 0; i < cotA; i++){
+                    B[dongB][i] = Integer.parseInt(temp[i]);
+                }
+                dongB++;
+            }
+            
+            
+            
+            
+        } catch (Exception e) {
+        
+        }
+    }
+    
+    
+    public void hienThiB(){
+        for(int i = 0; i < dongB; i++){
+            for(int j = 0; j < cotB; j++){
+                System.out.print(B[i][j] + "\t");
+            }
+            System.out.println("\n");
+        }
+    }
+    
+    public void tich2Matran(){
+        C = new int [dongA][cotB];
+            if(cotA != dongB){
+                System.out.println("\nĐể nhân 2 ma trận thì số cột của ma trận A phải bằng với số dòng của ma trận B");
+            }
+            else
+            {
+                for (int i = 0; i < dongA; i++) {
+                    for (int j = 0; j < cotB; j++) {
+                        C[i][j] = 0;
+                        for (int k = 0; k < cotA; k++) {
+                            C[i][j] = C[i][j] + A[i][k] * B[k][j];
+                        }
+                    }
+                }
+            }
+    }
+    
+    public void hienThiC(){
+        for(int i = 0; i < dongA; i++){
+            for(int j = 0; j < cotB; j++){
+                System.out.print(C[i][j] + "\t");
+            }
+            System.out.println("\n");
+        }
+    }
+    
+    
+    public static void main(String[] args) {
+        
+        nhan2MaTran sub = new nhan2MaTran();
+        
+        System.out.println("Ma trận A");
+        sub.getDataA();
+        sub.hienThiA();
+        
+        System.out.println("Ma trận B");
+        sub.getDataB();
+        sub.hienThiB();
+        
+        
+        System.out.println("Ma trận tích C");
+        sub.tich2Matran();
+        sub.hienThiC();
+    }
+    
+}
