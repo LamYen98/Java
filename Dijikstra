@@ -1,0 +1,154 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+
+public class Dijikstra {
+    int G[][];
+    int N;
+    int dinhDau;
+    int daXet[];
+    int dinhTruoc[];
+    int doDai[];
+    int voCung = 0;
+    public Dijikstra(){
+        N = 0 ;
+        G = null;
+        dinhDau = 0;
+        doDai = null;
+        daXet = null;
+        dinhTruoc = null;
+        voCung = 0;
+    }
+    
+    public boolean LayDuLieuTuFile(String tenfile) throws IOException{
+        try{
+            File file = new File(tenfile);
+            if(!file.exists())
+                return false;
+            
+            FileInputStream input = new FileInputStream(tenfile);
+            InputStreamReader istream = new InputStreamReader(input);
+            BufferedReader reader = new BufferedReader(istream);
+            String s;
+            
+            s = reader.readLine();
+            String temp[] =  s.split(" ");
+            N = Integer.parseInt(temp[0]);
+            dinhDau = Integer.parseInt(temp[1]);
+            G = new int[N][N];
+            int row = 0;
+            
+            while ((s = reader.readLine()) != null){
+                temp = s.split(" ");
+                for (int col = 0; col < N; col++)
+                    G[row][col] = Integer.parseInt(temp[col]);
+                row++;
+            }
+            
+            reader.close();
+            istream.close();
+            input.close();
+        }
+        
+        catch(FileNotFoundException ex){
+            System.err.println("File khong tim thay\n"+ ex.toString());
+        }
+        
+        return true;
+    }
+    
+    public void inMatran(){
+        for (int i = 0; i < N; i++){
+            System.out.print("\t\t");
+            for (int j = 0; j < N; j++)
+                System.out.print(G[i][j] + "\t");
+            System.out.println();
+        }
+        System.out.println();
+    }
+    
+    public void thuatToan_Dijikstra()
+    {
+    	voCung = 99999999;
+    	for (int i = 0; i < N ; i++ ) 
+    		for (int j = 0 ; j < N ; j++ ) 
+    			if(i != j && G[i][j] == 0)
+    				G[i][j] = voCung;
+    			dinhDau--;
+    			doDai = new int[N];
+    			daXet = new int[N];
+    			dinhTruoc = new int[N];
+    			for (int i = 0; i < N ; i++ ) {
+    				doDai[i] = voCung;
+    				daXet[i] = 0;
+    				dinhTruoc[i] = dinhDau;
+    			}
+    			int i;
+    			doDai[dinhDau] = 0;
+    			for (int dinh = 0; dinh < N ; dinh++ ) {
+    				for(i = 0; i < N; i++)
+    					if(daXet[i] != 1 && doDai[i] < voCung)
+    						break;
+    				if(i==N)
+    					break;
+    				for(int j = 0; j < N; j++)
+    					if(daXet[j]!=1 &&doDai[i]> doDai[j])
+    						i = j;
+    				daXet[i] = 1;
+
+    				for (int j = 0; j < N ;j++ ) 
+    					if(daXet[j] != 1 && doDai[i] + G[i][j] < doDai[j]){
+    						doDai[j]= doDai[i] + G[i][j];
+    						dinhTruoc[j] = i;
+    					}
+    				}
+    			}
+    public void XuatDuongDi(){
+        for(int dinh = 0; dinh < N; dinh++)
+        if(dinh != dinhDau)
+            {
+                if(doDai[dinh] < voCung)
+                {
+                    System.out.print("\t\tDo dai duong di tu dinh " + (dinhDau + 1) + "den dinh" + (dinh + 1) + "la: " +doDai[dinh] + "\t\t");
+                    int A[] = new int[N];
+                    int dem = 0;
+                    int i = dinh;
+                    while(i != dinhDau)
+                    {
+                        A[dem++] = i;
+                        i = dinhTruoc[i];
+                    }
+                    System.out.print("\tChi tiet duong di: " + (dinhDau+1));
+                    for(int k = dem -1; k >= 0; k--){
+                            System.out.print("->" + (A[k] + 1 ));
+                    }
+                }
+                else
+                    System.out.println("\t\t Khong co duong di tu dinh " +(dinhDau+1)+ " den dinh " + (dinh + 1));
+                System.out.println("\n");
+            }
+    }
+	
+    		
+    	
+    
+    public static void main(String[] args) throws IOException{
+        String tenTapTin = "D://dt2.txt";
+        Dijikstra demo;
+        demo = new Dijikstra();
+        if(!demo.LayDuLieuTuFile(tenTapTin))
+        {
+        	System.out.println("\t\tTap tin khong ton tai!");
+        	System.exit(0);
+        }
+        System.out.println("\t\tMa tran trong so : " );
+        demo.inMatran();
+        demo.thuatToan_Dijikstra();
+        demo.XuatDuongDi();
+
+    }
+}
