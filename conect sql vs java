@@ -1,0 +1,40 @@
+/*
+ Ket noi SQL voi Java
+ */
+package thongtin;
+
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class SQLex {
+    public static void main(String[] args) {
+        try{
+            //String dbURL ="jdbc:sqlserver://DESKTOP-OM9NEQS\\SQLEXPRESS1:1433;Database=KT15_1602206080;"+ "UserName = sa,Password  =sasa";  
+            String dbURL ="jdbc:sqlserver://localhost;databaseName=ketnoijava;user = sa;password  =sasa";
+            
+            Connection conn= DriverManager.getConnection(dbURL);
+            if(conn!=null){
+                System.out.println("connected");
+                DatabaseMetaData dm=(DatabaseMetaData) conn.getMetaData();
+                Statement stml = conn.createStatement();
+                // get data from table 'mon hoc'
+                ResultSet rs = stml.executeQuery("select * from NUOC");
+                // show data
+                while(rs.next()){
+                    //System.out.println(rs.getInt(1)+" "+ rs.getString(2));
+                    System.out.println(rs.getString(1)+" - $"+ rs.getFloat(2));
+                    
+                }
+            }
+                    
+        }
+        catch(SQLException ex){
+            System.err.println("cannot conect database"+ex);
+        }
+    }
+    
+}
