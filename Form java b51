@@ -1,0 +1,505 @@
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
+
+public class b51 extends javax.swing.JFrame {
+         double vdmc=0;  // bien vdmc lay gia tri hien thi vdmc
+         double blc=0;  // bien blc lay gia tri cho balance
+
+    public b51() throws SQLException {
+        initComponents();
+        bt_psLoadData();
+        bt_mdLoadData();
+        bt_cLoadData();
+        bt_dcLoadData();
+        bt_bLoadData();
+        bt_cjLoadData();
+        
+    }
+    public void bt_psLoadData() throws SQLException{
+        try {
+            String dbURL = "jdbc:sqlserver://localhost;databaseName=bai551;user = sa;password  =sasa";
+            Connection conn = DriverManager.getConnection(dbURL);
+            if (conn != null) {              
+                DatabaseMetaData dm = (DatabaseMetaData) conn.getMetaData();
+                Statement stml = conn.createStatement();
+                // get data from table 'nuoc'
+                ResultSet rs = stml.executeQuery("select * from NC_UONG where TEN_NC = 'Pepsi'");
+                // show data                             
+                while (rs.next()) {
+                    String a = String.valueOf(rs.getFloat(3));  // chuyển đổi thành chuổi                   
+                    bt_ps.setText("Pepsi -$" + a);
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println("cannot conect database" + ex);
+        }
+    }
+        public void bt_mdLoadData() throws SQLException{
+        try {
+            String dbURL = "jdbc:sqlserver://localhost;databaseName=bai551;user = sa;password  =sasa";
+            Connection conn = DriverManager.getConnection(dbURL);
+            if (conn != null) {              
+                DatabaseMetaData dm = (DatabaseMetaData) conn.getMetaData();
+                Statement stml = conn.createStatement();
+                // get data from table 'nuoc'
+                ResultSet rs = stml.executeQuery("select * from NC_UONG where TEN_NC = 'Mountain Dew'");
+                // show data                             
+                while (rs.next()) {
+                    String a = String.valueOf(rs.getFloat(3));  // chuyển đổi thành chuổi                   
+                    bt_md.setText("Mountain Dew -$" + a);
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println("cannot conect database" + ex);
+        }
+    }
+ public void bt_cLoadData() throws SQLException{
+        try {
+            String dbURL = "jdbc:sqlserver://localhost;databaseName=bai551;user = sa;password  =sasa";
+            Connection conn = DriverManager.getConnection(dbURL);
+            if (conn != null) {              
+                DatabaseMetaData dm = (DatabaseMetaData) conn.getMetaData();
+                Statement stml = conn.createStatement();
+                // get data from table 'nuoc'
+                ResultSet rs = stml.executeQuery("select * from NC_UONG where TEN_NC = 'Coke'");
+                // show data                             
+                while (rs.next()) {
+                    String a = String.valueOf(rs.getFloat(3));  // chuyển đổi thành chuổi                   
+                    bt_c.setText("Coke -$" + a);
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println("cannot conect database" + ex);
+        }
+    }
+  public void bt_dcLoadData() throws SQLException{
+        try {
+            String dbURL = "jdbc:sqlserver://localhost;databaseName=bai551;user = sa;password  =sasa";
+            Connection conn = DriverManager.getConnection(dbURL);
+            if (conn != null) {              
+                DatabaseMetaData dm = (DatabaseMetaData) conn.getMetaData();
+                Statement stml = conn.createStatement();
+                // get data from table 'nuoc'
+                ResultSet rs = stml.executeQuery("select * from NC_UONG where TEN_NC = 'Diet Coke'");
+                // show data                             
+                while (rs.next()) {
+                    String a = String.valueOf(rs.getFloat(3));  // chuyển đổi thành chuổi                   
+                    bt_dc.setText("Diet Coke -$" + a);
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println("cannot conect database" + ex);
+        }
+    }
+  public void bt_bLoadData() throws SQLException{
+        try {
+            String dbURL = "jdbc:sqlserver://localhost;databaseName=bai551;user = sa;password  =sasa";
+            Connection conn = DriverManager.getConnection(dbURL);
+            if (conn != null) {              
+                DatabaseMetaData dm = (DatabaseMetaData) conn.getMetaData();
+                Statement stml = conn.createStatement();
+                // get data from table 'nuoc'
+                ResultSet rs = stml.executeQuery("select * from NC_UONG where TEN_NC = 'Blood'");
+                // show data                             
+                while (rs.next()) {
+                    String a = String.valueOf(rs.getFloat(3));  // chuyển đổi thành chuổi                   
+                    bt_b.setText("Blood -$" + a);
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println("cannot conect database" + ex);
+        }
+    }
+  public void bt_cjLoadData() throws SQLException{
+        try {
+            String dbURL = "jdbc:sqlserver://localhost;databaseName=bai551;user = sa;password  =sasa";
+            Connection conn = DriverManager.getConnection(dbURL);
+            if (conn != null) {              
+                DatabaseMetaData dm = (DatabaseMetaData) conn.getMetaData();
+                Statement stml = conn.createStatement();
+                // get data from table 'nuoc'
+                ResultSet rs = stml.executeQuery("select * from NC_UONG where TEN_NC = 'Crab Juice'");
+                // show data                             
+                while (rs.next()) {
+                    String a = String.valueOf(rs.getFloat(3));  // chuyển đổi thành chuổi                   
+                    bt_cj.setText("Crab Juice -$" + a);
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println("cannot conect database" + ex);
+        }
+    }
+  
+ 
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jLabel1 = new javax.swing.JLabel();
+        bt_c = new javax.swing.JButton();
+        bt_ps = new javax.swing.JButton();
+        bt_md = new javax.swing.JButton();
+        bt_dc = new javax.swing.JButton();
+        bt_b = new javax.swing.JButton();
+        bt_cj = new javax.swing.JButton();
+        bt_d = new javax.swing.JButton();
+        bt_hd = new javax.swing.JButton();
+        bt_q = new javax.swing.JButton();
+        bt_dm = new javax.swing.JButton();
+        bt_nk = new javax.swing.JButton();
+        bt_cr = new javax.swing.JButton();
+        lb_vdmc = new javax.swing.JLabel();
+        lb_blc = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel1.setText("Vending Machine");
+
+        bt_c.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        bt_c.setText("Coke - $");
+        bt_c.setName("bt_c"); // NOI18N
+        bt_c.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_cActionPerformed(evt);
+            }
+        });
+
+        bt_ps.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        bt_ps.setText("Pepsi - $");
+        bt_ps.setName("bt_ps"); // NOI18N
+        bt_ps.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_psActionPerformed(evt);
+            }
+        });
+
+        bt_md.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        bt_md.setText("Mountain Dew - $");
+        bt_md.setName("bt_md"); // NOI18N
+        bt_md.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_mdActionPerformed(evt);
+            }
+        });
+
+        bt_dc.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        bt_dc.setText("Diet Coke - $");
+        bt_dc.setName("bt_dc"); // NOI18N
+        bt_dc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_dcActionPerformed(evt);
+            }
+        });
+
+        bt_b.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        bt_b.setText("Blood - $");
+        bt_b.setName("bt_b"); // NOI18N
+        bt_b.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_bActionPerformed(evt);
+            }
+        });
+
+        bt_cj.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        bt_cj.setText("Crab Juice - $");
+        bt_cj.setName("bt_cj"); // NOI18N
+        bt_cj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_cjActionPerformed(evt);
+            }
+        });
+
+        bt_d.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        bt_d.setText("Dollar");
+        bt_d.setName("bt_d"); // NOI18N
+        bt_d.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_dActionPerformed(evt);
+            }
+        });
+
+        bt_hd.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        bt_hd.setText("Half Dollar");
+        bt_hd.setName("bt_hd"); // NOI18N
+        bt_hd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_hdActionPerformed(evt);
+            }
+        });
+
+        bt_q.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        bt_q.setText("Quarter");
+        bt_q.setName("bt_q"); // NOI18N
+        bt_q.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_qActionPerformed(evt);
+            }
+        });
+
+        bt_dm.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        bt_dm.setText("Dime");
+        bt_dm.setName("bt_d"); // NOI18N
+        bt_dm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_dmActionPerformed(evt);
+            }
+        });
+
+        bt_nk.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        bt_nk.setText("Nickel");
+        bt_nk.setName("bt_n"); // NOI18N
+        bt_nk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_nkActionPerformed(evt);
+            }
+        });
+
+        bt_cr.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        bt_cr.setText("Coin Return");
+        bt_cr.setToolTipText("");
+        bt_cr.setName("bt_cr"); // NOI18N
+        bt_cr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_crActionPerformed(evt);
+            }
+        });
+
+        lb_vdmc.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lb_vdmc.setText("Vending Machine: $");
+
+        lb_blc.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        lb_blc.setText("Balance: $");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lb_blc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bt_ps, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bt_md, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+                            .addComponent(bt_c, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bt_dc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bt_b, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bt_cj, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(bt_cr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bt_nk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bt_dm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bt_q, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bt_hd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bt_d, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lb_vdmc, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE))))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bt_ps, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_d, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bt_md, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_hd, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bt_c, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_q, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bt_dc, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_dm, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bt_b, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_nk, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bt_cj, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_cr, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lb_blc, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_vdmc, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 28, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void bt_psActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_psActionPerformed
+       blc+=1.05;
+       lb_blc.setText("Balance: $"+blc);
+    }//GEN-LAST:event_bt_psActionPerformed
+
+    private void bt_mdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_mdActionPerformed
+        blc+=1.45;
+       lb_blc.setText("Balance: $"+blc);
+    }//GEN-LAST:event_bt_mdActionPerformed
+
+    //******************************************************************//
+    private void bt_dActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_dActionPerformed
+        JOptionPane.showMessageDialog(null, "Dollar = 1");
+        vdmc+=1;
+        lb_vdmc.setText("Vending Machine: $"+vdmc);
+         
+    }//GEN-LAST:event_bt_dActionPerformed
+
+    private void bt_hdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_hdActionPerformed
+        JOptionPane.showMessageDialog(null, "Half Dollar = 0.5");
+        vdmc+=0.5;
+        lb_vdmc.setText("Vending Machine: $"+vdmc);
+         
+    }//GEN-LAST:event_bt_hdActionPerformed
+
+    private void bt_qActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_qActionPerformed
+       JOptionPane.showMessageDialog(null, "Quarter = 0.25");
+        vdmc+=0.25;
+        lb_vdmc.setText("Vending Machine: $"+vdmc);
+    }//GEN-LAST:event_bt_qActionPerformed
+
+    private void bt_dmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_dmActionPerformed
+       JOptionPane.showMessageDialog(null, "Dime = 0.1");
+        vdmc+=0.1;
+        lb_vdmc.setText("Vending Machine: $"+vdmc);
+    }//GEN-LAST:event_bt_dmActionPerformed
+
+    private void bt_nkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_nkActionPerformed
+        JOptionPane.showMessageDialog(null, "Nickel = 0.05");
+         vdmc+=0.05;
+        lb_vdmc.setText("Vending Machine: $"+vdmc);
+    }//GEN-LAST:event_bt_nkActionPerformed
+
+    private void bt_crActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_crActionPerformed
+       JOptionPane.showMessageDialog(null, "Coin Return="+(vdmc-blc));
+    }//GEN-LAST:event_bt_crActionPerformed
+
+    private void bt_cActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cActionPerformed
+        blc+=2.15;
+       lb_blc.setText("Balance: $"+blc);
+    }//GEN-LAST:event_bt_cActionPerformed
+
+    private void bt_dcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_dcActionPerformed
+       blc+=2.95;
+       lb_blc.setText("Balance: $"+blc);
+    }//GEN-LAST:event_bt_dcActionPerformed
+
+    private void bt_bActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_bActionPerformed
+        blc+=9.95;
+       lb_blc.setText("Balance: $"+blc);
+    }//GEN-LAST:event_bt_bActionPerformed
+
+    private void bt_cjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cjActionPerformed
+       blc+=4.05;
+       lb_blc.setText("Balance: $"+blc);
+    }//GEN-LAST:event_bt_cjActionPerformed
+    private void lb_vdmcActionPerformed(java.awt.event.ActionEvent evt){
+        //lb_vdmc.setText(""+vdmc);
+    }
+     public void bt_dMouseClicked(java.awt.event.MouseEvent evt) {              
+       
+     }
+      public void bt_hdMouseClicked(java.awt.event.MouseEvent evt) {       
+          
+      }
+      public void bt_qMouseClicked(java.awt.event.MouseEvent evt) {              
+            
+      } 
+       public void bt_dmMouseClicked(java.awt.event.MouseEvent evt) {       
+           
+      }
+        public void bt_nkMouseClicked(java.awt.event.MouseEvent evt) {       
+              
+      }
+      public void bt_psMouseClicked(java.awt.event.MouseEvent evt) {       
+              
+      } 
+       public void bt_mdMouseClicked(java.awt.event.MouseEvent evt) {       
+              
+      }
+        public void bt_cMouseClicked(java.awt.event.MouseEvent evt) {       
+              
+      }
+       public void bt_dcMouseClicked(java.awt.event.MouseEvent evt) {       
+              
+      }
+       public void bt_bMouseClicked(java.awt.event.MouseEvent evt) {       
+              
+      }
+        public void bt_cjMouseClicked(java.awt.event.MouseEvent evt) {       
+              
+      }
+    
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(b51.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(b51.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(b51.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(b51.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    new b51().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(b51.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bt_b;
+    private javax.swing.JButton bt_c;
+    private javax.swing.JButton bt_cj;
+    private javax.swing.JButton bt_cr;
+    private javax.swing.JButton bt_d;
+    private javax.swing.JButton bt_dc;
+    private javax.swing.JButton bt_dm;
+    private javax.swing.JButton bt_hd;
+    private javax.swing.JButton bt_md;
+    private javax.swing.JButton bt_nk;
+    private javax.swing.JButton bt_ps;
+    private javax.swing.JButton bt_q;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lb_blc;
+    private javax.swing.JLabel lb_vdmc;
+    // End of variables declaration//GEN-END:variables
+
+    
