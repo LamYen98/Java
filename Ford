@@ -1,0 +1,173 @@
+0 2 2 2 2
+0 0 0 0 0
+0 6 5 5 5
+0 0 8 7 7
+
+package ford;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+
+public class Ford {
+    int g[][];
+    int n;
+    int dinhDau;
+    int daXet[];
+    int dinhTruoc[];
+    int doDai[];
+    int voCung=0;
+    public Ford(){
+        n =0;
+        g= null;
+        dinhDau=0;
+        doDai= null;
+        daXet = null;
+        dinhTruoc= null;
+        voCung = 0;
+        //int k=1;
+    }
+   public boolean Laydulieutufile(String tenfile){
+        try
+        {
+            File file = new File(tenfile);
+            if(!file.exists())
+                return false;
+            FileInputStream input = new FileInputStream(tenfile);
+            InputStreamReader istream = new InputStreamReader(input);
+            BufferedReader reader = new BufferedReader(istream);
+            String s;
+            // g?c s? g?nh g? th?
+            s = reader.readLine();
+            String temp[] = s.split(" "); // gia d? li?u vào m?ng
+            n = Integer.parseInt(temp[0]); //l?y sô g?nh
+            dinhDau = Integer.parseInt( temp[1])-1; // l?y g?nh b?t g?u
+            g = new int [n][n];
+            int row = 0;
+            // goc các d?ng ti?p theo vào ma tr?n 
+            while((s = reader.readLine()) != null)
+            {
+                temp = s.split(" ");
+                for(int col = 0; col<n; col++)
+                    g[row][col]= Integer.parseInt(temp[col]);
+                row++;
+            }
+            // dong file
+            reader.close();
+            istream.close();
+            input.close();
+        }
+        catch(FileNotFoundException ex)
+        {
+            System.err.println("File ko tim thay \n" +ex.toString());
+        }
+        catch(IOException ex)
+        {
+            System.err.println("l?i ngo?i l? \n"+ ex.toString());
+        }
+        return true;
+    }
+   
+   // in ma tran trong so
+   public void inMatran(){
+        for(int i= 0; i<n; i++){
+            System.out.print("\t\t");
+            for(int j=0; j<n; j++)
+                System.out.print(g[i][j] + "\t");
+            System.out.println();
+        }
+    }
+  /* public boolean stop(){
+       
+   }*/
+   public boolean ford(){
+        int k=1;
+        int voCung = 9999999;
+        boolean stop = false;
+        
+        // thay doi fia tri 0 thanh vocung
+       for(int i=0; i<n;i++)
+           for(int j=0;j<n; j++)
+               if(g[i][j]==0)
+                   g[i][j]= voCung;
+       // cap phat bo nho cho mang
+       dinhDau--;
+       doDai= new int[n];
+       daXet = new int [n];
+       dinhTruoc =new int[n];
+       for(int i =0; i<n; i++){
+           doDai[i]= voCung;
+           daXet[i]=0;
+           dinhTruoc[i]=dinhDau;
+       }
+       
+       
+        // khoi tao
+        /*
+        dinhDau--;
+        for(int i=0;...)
+        
+            doDai[i]= voCung;
+        doDai[s]= 0;
+        */
+       while(!stop){ // stop= false thi thuc hien
+           stop= true;
+           for(int i=0;i<n;i++)
+               for(int j=0;j<n;j++)
+                   if(g[i][j]>0&&g[i][j]< voCung){// neu co canh ij
+                       if(doDai[j]>doDai[i]+g[i][j]){
+                           doDai[j]= doDai[i]+g[i][j];
+                           dinhTruoc[j]=i;
+                           stop=false; // do dai dg di thay doi
+                       }// het neu g[i][j]>0...                       
+                   }
+       }
+        
+       if(k==n){
+           if(stop = false)
+               System.out.println("d? th? có chu trinh âm");
+               return false; // do thi co chu trinh am
+           //stop = true;
+       }//het if(k>n)
+       else k= k+1;
+       return true; // tim dc dg di
+   }
+   public void induongdi(){
+        for(int i =0; i<n; i++)
+            if(i!=dinhDau){
+                System.out.print("\n duong di tu" +(dinhDau+1)+"");
+                int k= dinhTruoc[i];
+                int t[]=new int[n];
+                int dem=0;
+                while(k!=dinhDau){
+                    t[dem++]=k;
+                    k=dinhTruoc[k];
+                }
+                //t[dem]=i;
+                for(int j=dem-1;j>=0;j--)
+                    System.out.println("->"+(t[j]+1));
+                System.out.println();
+           
+    }
+   }
+        
+public static void main(String[] args) {
+        String tenfile="D://mt2.txt";
+        Ford demo;
+        demo = new Ford();
+        if(!demo.Laydulieutufile(tenfile)){
+            System.exit(0);
+            
+        }
+        System.out.println("\t\t ma tran trong so");
+        demo.inMatran();
+        demo.ford();
+        demo.induongdi();
+    }
+    
+}
+    
